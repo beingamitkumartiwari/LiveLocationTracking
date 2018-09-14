@@ -34,6 +34,7 @@
         <activity
             android:name=".ui.LoginActivity"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -42,13 +43,21 @@
             android:name=".services.LocationUpdatesIntentService"
             android:exported="false" />
 
-        <receiver android:name=".services.LocationUpdatesBroadcastReceiver"
+        <service
+            android:name=".services.LocationUpdateService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".services.LocationUpdatesBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name=".LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".ui.ActivityWithForeGround"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

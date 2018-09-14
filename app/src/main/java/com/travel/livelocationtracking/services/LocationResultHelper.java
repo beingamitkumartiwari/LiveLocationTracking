@@ -24,10 +24,7 @@ import java.util.List;
 class LocationResultHelper {
 
     final static String KEY_LOCATION_UPDATES_RESULT = "location-update-result";
-
     final private static String PRIMARY_CHANNEL = "default";
-
-
     private Context mContext;
     private List<Location> mLocations;
     private NotificationManager mNotificationManager;
@@ -36,11 +33,11 @@ class LocationResultHelper {
     LocationResultHelper(Context context, List<Location> locations) {
         mContext = context;
         mLocations = locations;
-//        NotificationChannel channel = new NotificationChannel(PRIMARY_CHANNEL,
-//                context.getString(R.string.default_channel), NotificationManager.IMPORTANCE_DEFAULT);
-//        channel.setLightColor(Color.GREEN);
-//        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-//        getNotificationManager().createNotificationChannel(channel);
+        NotificationChannel channel = new NotificationChannel(PRIMARY_CHANNEL,
+                context.getString(R.string.default_channel), NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setLightColor(Color.GREEN);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        getNotificationManager().createNotificationChannel(channel);
     }
 
     private String getLocationResultTitle() {
@@ -98,7 +95,7 @@ class LocationResultHelper {
         // Get a PendingIntent containing the entire back stack.
         PendingIntent notificationPendingIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification.Builder notificationBuilder = new Notification.Builder(mContext)
+        Notification.Builder notificationBuilder = new Notification.Builder(mContext, PRIMARY_CHANNEL)
                 .setContentTitle(getLocationResultTitle())
                 .setContentText(getLocationResultText())
                 .setSmallIcon(R.mipmap.ic_launcher)

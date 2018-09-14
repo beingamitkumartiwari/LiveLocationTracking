@@ -21,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (sessionPrefs.isLogin()){
             new Handler().postDelayed(() -> {
                 Intent intent = new Intent(WelcomeActivity.this,
-                        TrackerActivity.class);
+                        ActivityWithForeGround.class);
                 startActivity(intent);
                 finish();
             }, 1500);

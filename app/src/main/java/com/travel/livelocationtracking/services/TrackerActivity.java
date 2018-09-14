@@ -2,11 +2,9 @@ package com.travel.livelocationtracking.services;
 
 import android.Manifest;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -23,17 +21,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.travel.livelocationtracking.BuildConfig;
 import com.travel.livelocationtracking.R;
 import com.travel.livelocationtracking.db.SessionPrefs;
 import com.travel.livelocationtracking.ui.LoginActivity;
 
-import java.util.List;
 
 public class TrackerActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -60,6 +54,7 @@ public class TrackerActivity extends FragmentActivity implements
         mRequestUpdatesButton = findViewById(R.id.request_updates_button);
         mRemoveUpdatesButton = findViewById(R.id.remove_updates_button);
         mLocationUpdatesResultView = findViewById(R.id.location_updates_result);
+        sessionPrefs.setLogin(true);
         if (!checkPermissions()) {
             requestPermissions();
         }
@@ -252,14 +247,11 @@ public class TrackerActivity extends FragmentActivity implements
         }
     }
 
-
     private PendingIntent getPendingIntent() {
         Intent intent = new Intent(this, LocationUpdatesBroadcastReceiver.class);
         intent.setAction(LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES);
         return PendingIntent.getBroadcast(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
-
-
 
 }
